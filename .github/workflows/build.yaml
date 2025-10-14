@@ -5,7 +5,7 @@ on:
     branches: [ main, master ]
   workflow_call:
     inputs:
-      java-verions:
+      java-verion:
         required: false
         type: string
       message:
