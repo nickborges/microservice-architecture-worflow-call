@@ -1,8 +1,6 @@
 name: Pipeline Template
 
 on:
-  push:
-    branches: [ main, master ]
   workflow_call:
     inputs:
       message:
