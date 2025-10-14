@@ -1,11 +1,13 @@
 name: Pipeline Template
 
 on:
+  push:
+    branches: [ main, master ]
   workflow_call:
-    inputs:
-      message:
-        required: true
-        type: string
+    #inputs:
+    #  message:
+    #    required: true
+    #    type: string
 
 jobs:
   build:
