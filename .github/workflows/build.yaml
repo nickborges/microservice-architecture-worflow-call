@@ -16,7 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: dev
-    message: "build success"
     steps:
       - uses: actions/checkout@v4
       - name: setup-jdk-21
