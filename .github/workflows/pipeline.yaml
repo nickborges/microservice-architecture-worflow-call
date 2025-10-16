@@ -25,6 +25,7 @@ jobs:
     environment: dev
     outputs:
       maven_version: ${{ steps.maven_version.outputs.VERSION }}
+      maven_artifactid: ${{ steps.maven_artifactid.outputs.APP_NAME }}
     steps:
       - uses: actions/checkout@v4
       - name: setup-jdk-21
@@ -35,11 +36,18 @@ jobs:
           cache: maven
       - name: build-maven
         run: mvn -DskipTests clean package
-      - name: mave-get-version
+      - name: app-info
         run: |
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+          APP_NAME=$( mvn help:evaluate -Dexpression=project.artifactid -q -DforceStdout )
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "APP_NAME=$APP_NAME" >> $GITHUB_OUTPUT
         id: maven_version
+      - name: upload-artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: ${{ build.outputs.maven_artifactid }}
+          path: target
   docker:
     needs: build
     runs-on: ubuntu-latest
