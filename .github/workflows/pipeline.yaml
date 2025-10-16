@@ -49,7 +49,7 @@ jobs:
       - name: upload-artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: ${{ build.outputs.maven_artifactid }}
+          name: ${{ jobs.build.outputs.maven_artifactid }}
           path: target
   docker:
     needs: build
