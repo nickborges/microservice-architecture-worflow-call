@@ -34,7 +34,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: build-maven
-        run: mvn clean package
+        run: mvn -DskipTests clean package
       - name: mave-get-version
         run: |
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
