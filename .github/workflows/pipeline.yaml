@@ -15,6 +15,7 @@ on:
 jobs:
   #todo: test
   build:
+    secrets: inherit
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -54,6 +55,7 @@ jobs:
   #        # quick-fixes available in Ultimate and Ultimate Plus plans
   #        push-fixes: 'none'
   docker:
+    secrets: inherit
     needs: build
     runs-on: ubuntu-latest
     steps:
