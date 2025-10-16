@@ -36,17 +36,20 @@ jobs:
           cache: maven
       - name: build-maven
         run: mvn -DskipTests clean package
-      - name: app-info
+      - name: app-version
         run: |
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
-          APP_NAME=$( mvn help:evaluate -Dexpression=project.artifactid -q -DforceStdout )
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-          echo "APP_NAME=$APP_NAME" >> $GITHUB_OUTPUT
         id: maven_version
+      - name: app-name
+        run: |
+          APP_NAME=$( mvn help:evaluate -Dexpression=project.artifactid -q -DforceStdout )
+          echo "APP_NAME=$APP_NAME" >> $GITHUB_OUTPUT
+        id: maven_artifactid
       - name: upload-artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: ${{ outputs.maven_artifactid }}
+          name: ${{ build.outputs.maven_artifactid }}
           path: target
   docker:
     needs: build
