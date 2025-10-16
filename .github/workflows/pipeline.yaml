@@ -13,10 +13,17 @@ on:
       #  type: string
 
 jobs:
-  #todo: test
+  test:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: unit-test
+        run: echo "unit test" #TODO
   build:
     runs-on: ubuntu-latest
     environment: dev
+    outputs:
+      maven_version: ${{ steps.maven_version.outputs.my_variable }}
     steps:
       - uses: actions/checkout@v4
       - name: setup-jdk-21
@@ -45,6 +52,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: docker-build
-        run: echo "docker build"
+        run: echo "docker build" #TODO
       - name: docker-tag
         run: echo ${{ needs.build.outputs.maven_version }}
