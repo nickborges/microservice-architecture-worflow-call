@@ -46,11 +46,11 @@ jobs:
           APP_NAME=$( mvn help:evaluate -Dexpression=project.artifactid -q -DforceStdout )
           echo "APP_NAME=$APP_NAME" >> $GITHUB_OUTPUT
         id: maven_artifactid
-      - name: upload-artifact
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: app
-          path: target/*.jar
+      #- name: upload-artifact
+      #  uses: actions/upload-artifact@v4.6.2
+      #  with:
+      #    name: app
+      #    path: target/*.jar
   docker:
     needs: build
     runs-on: ubuntu-latest
