@@ -54,7 +54,7 @@ jobs:
   #        # quick-fixes available in Ultimate and Ultimate Plus plans
   #        push-fixes: 'none'
   docker:
-    needs: qodana
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
