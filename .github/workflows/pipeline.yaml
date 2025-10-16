@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     outputs:
-      maven_version: ${{ steps.maven_version.outputs.my_variable }}
+      maven_version: ${{ steps.maven_version.outputs.VERSION }}
     steps:
       - uses: actions/checkout@v4
       - name: setup-jdk-21
@@ -38,7 +38,7 @@ jobs:
       - name: mave-get-version
         run: |
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
-          echo "$VERSION"
+          echo "$VERSION" >> $GITHUB_OUTPUT
         id: maven_version
   docker:
     needs: build
