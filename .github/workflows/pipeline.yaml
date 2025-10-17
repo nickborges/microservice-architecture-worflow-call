@@ -50,7 +50,7 @@ jobs:
     environment: dev
     steps:
       - uses: actions/checkout@v4
-      - name: cache-sonarQube-packages
+      - name: cache-sonarqube-packages
         uses: actions/cache@v4.3.0
         with:
           path: ~/.sonar/cache
@@ -64,7 +64,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: unit-test
         run: mvn jacoco:prepare-agent verify
-      - name: sonarQube-analyze
+      - name: sonarqube-analyze
         uses: SonarSource/sonarcloud-github-action@v5.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
