@@ -18,7 +18,7 @@ jobs:
     environment: dev
     outputs:
       maven_version: ${{ steps.maven_version.outputs.VERSION }}
-      maven_artifactid: ${{ steps.maven_artifactid.outputs.APP_NAME }}
+      maven_artifactId: ${{ steps.maven_artifactId.outputs.APP_NAME }}
     steps:
       - uses: actions/checkout@v4
       - name: setup-jdk-21
@@ -36,9 +36,9 @@ jobs:
         id: maven_version
       - name: app-name
         run: |
-          APP_NAME=$( mvn help:evaluate -Dexpression=project.artifactid -q -DforceStdout )
+          APP_NAME=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout )
           echo "APP_NAME=$APP_NAME" >> $GITHUB_OUTPUT
-        id: maven_artifactid
+        id: maven_artifactId
       #- name: upload-artifact
       #  uses: actions/upload-artifact@v4.6.2
       #  with:
@@ -72,13 +72,13 @@ jobs:
         #  scannerVersion: 6.2.0.4584
           args: >
             -Dsonar.organization=nickborges
-            -Dsonar.projectKey=${{ needs.build.outputs.maven_artifactid }}
+            -Dsonar.projectKey=${{ needs.build.outputs.maven_artifactId }}
         #    -Dsonar.python.coverage.reportPaths=coverage.xml
         #    -Dsonar.sources=lib/
         #    -Dsonar.tests=tests/
         #    -Dsonar.test.exclusions=tests/**
         #    -Dsonar.verbose=true
-  docker:
+  image-register:
     needs: build
     runs-on: ubuntu-latest
     steps:
