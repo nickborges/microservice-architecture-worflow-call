@@ -67,19 +67,19 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v5.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        #with:
+        with:
         #  projectBaseDir: app/src
         #  scannerVersion: 6.2.0.4584
-        #  args: >
-        #    -Dsonar.organization=my-organization
-        #    -Dsonar.projectKey=my-projectkey
+          args: >
+            -Dsonar.organization=nickborges
+            -Dsonar.projectKey=${{ needs.build.outputs.maven_artifactid }}
         #    -Dsonar.python.coverage.reportPaths=coverage.xml
         #    -Dsonar.sources=lib/
         #    -Dsonar.tests=tests/
         #    -Dsonar.test.exclusions=tests/**
         #    -Dsonar.verbose=true
   docker:
-    needs: quality
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
