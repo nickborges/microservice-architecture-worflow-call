@@ -81,7 +81,7 @@ jobs:
         #    -Dsonar.test.exclusions=tests/**
         #    -Dsonar.verbose=true
   image-register:
-    needs: build
+    needs: quality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
