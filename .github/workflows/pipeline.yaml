@@ -72,7 +72,7 @@ jobs:
         #  scannerVersion: 6.2.0.4584
           args: >
             -Dsonar.organization=nickborges
-            -Dsonar.projectKey=${{ needs.build.outputs.maven_artifactId }}
+            -Dsonar.projectKey=nickborges_${{ needs.build.outputs.maven_artifactId }}
         #    -Dsonar.python.coverage.reportPaths=coverage.xml
         #    -Dsonar.sources=lib/
         #    -Dsonar.tests=tests/
