@@ -34,11 +34,15 @@ jobs:
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
         id: maven_version
+        env:
+          VERSION: ${{ steps.maven_version.outputs.VERSION }}
       - name: app-name
         run: |
           APP_NAME=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout )
           echo "APP_NAME=$APP_NAME" >> $GITHUB_OUTPUT
         id: maven_artifactId
+        env:
+          APP_NAME: ${{ steps.maven_artifactId.outputs.APP_NAME }}
       #- name: upload-artifact
       #  uses: actions/upload-artifact@v4.6.2
       #  with:
@@ -98,4 +102,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: nickkborges/ms-sboot:${{ jobs.build.outputs.maven_version }}
+          tags: nickkborges/ms-sboot:${{ needs.build.outputs.maven_version }}
