@@ -21,7 +21,7 @@ jobs:
       maven_artifactId: ${{ steps.maven_artifactId.outputs.APP_NAME }}
     steps:
       - uses: actions/checkout@v4
-      - name: setup-jdk-21
+      - name: setup-jdk
         uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.java-version }}
@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     steps:
+      - uses: actions/checkout@v4
       - name: cache-sonarQube-packages
         uses: actions/cache@v4.3.0
         with:
