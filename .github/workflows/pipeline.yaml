@@ -64,12 +64,20 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: sonarQube-analyze
-        uses: sonarsource/sonarcloud-github-action@v4.0.0
+        uses: sonarsource/sonarcloud-github-action@v4.0.2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         #with:
         #  projectBaseDir: app/src
         #  scannerVersion: 6.2.0.4584
+        #  args: >
+        #    -Dsonar.organization=my-organization
+        #    -Dsonar.projectKey=my-projectkey
+        #    -Dsonar.python.coverage.reportPaths=coverage.xml
+        #    -Dsonar.sources=lib/
+        #    -Dsonar.tests=tests/
+        #    -Dsonar.test.exclusions=tests/**
+        #    -Dsonar.verbose=true
   docker:
     needs: quality
     runs-on: ubuntu-latest
