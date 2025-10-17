@@ -102,4 +102,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: nickkborges/ms-sboot:${{ needs.build.outputs.maven_version }}
+          tags: nickkborges/ms-sboot:${VERSION}
