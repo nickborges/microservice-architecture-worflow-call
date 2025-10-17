@@ -74,8 +74,8 @@ jobs:
           args: >
             -Dsonar.organization=${{ github.repository_owner }}
             -Dsonar.projectKey=${{ github.repository_owner }}_${{ needs.build.outputs.maven_artifactId }}
-        #    -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=src/
+        #    -Dsonar.python.coverage.reportPaths=coverage.xml
         #    -Dsonar.tests=tests/
         #    -Dsonar.test.exclusions=tests/**
         #    -Dsonar.verbose=true
