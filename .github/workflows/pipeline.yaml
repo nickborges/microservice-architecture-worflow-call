@@ -16,9 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: dev
-    env:
-      VERSION: ${{ outputs.maven_version.outputs.VERSION }}
-      APP_NAME: ${{ outputs.maven_artifactId.outputs.APP_NAME }}
     outputs:
       maven_version: ${{ steps.maven_version.outputs.VERSION }}
       maven_artifactId: ${{ steps.maven_artifactId.outputs.APP_NAME }}
@@ -84,7 +81,7 @@ jobs:
         #    -Dsonar.test.exclusions=tests/**
         #    -Dsonar.verbose=true
   image-register:
-    needs: quality
+    needs: [build, quality]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -101,4 +98,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: nickkborges/ms-sboot:${VERSION}
+          tags: nickkborges/ms-sboot:${{ needs.build.outputs.maven_version }}
