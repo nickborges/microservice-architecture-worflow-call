@@ -49,8 +49,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     steps:
-      - name: unit-test
-        run: echo "unit test" #TODO
       - name: cache-sonarQube-packages
         uses: actions/cache@v4.3.0
         with:
@@ -63,6 +61,8 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: unit-test
+        run: mvn jacoco:prepare-agent verify
       - name: sonarQube-analyze
         uses: SonarSource/sonarcloud-github-action@v5.0.0
         env:
