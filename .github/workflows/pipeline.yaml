@@ -13,14 +13,7 @@ on:
       #  type: string
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-      - name: unit-test
-        run: echo "unit test" #TODO
   build:
-    needs: test
     runs-on: ubuntu-latest
     environment: dev
     outputs:
@@ -51,8 +44,31 @@ jobs:
       #  with:
       #    name: app
       #    path: target/*.jar
-  docker:
+  quality:
     needs: build
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: unit-test
+        run: echo "unit test" #TODO
+      - name: cache-sonarQube-packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: cache-maven-packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: sonarQube-analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=nickborges_ms-sboot
+  docker:
+    needs: quality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
