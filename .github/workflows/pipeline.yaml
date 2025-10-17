@@ -71,8 +71,8 @@ jobs:
         #  projectBaseDir: app/src
         #  scannerVersion: 6.2.0.4584
           args: >
-            -Dsonar.organization=$GITHUB_REPOSITORY_OWNER
-            -Dsonar.projectKey=$GITHUB_REPOSITORY_OWNER_${{ needs.build.outputs.maven_artifactId }}
+            -Dsonar.organization=${{ github.repository_owner }}
+            -Dsonar.projectKey=${{ github.repository_owner }}_${{ needs.build.outputs.maven_artifactId }}
         #    -Dsonar.python.coverage.reportPaths=coverage.xml
         #    -Dsonar.sources=lib/
         #    -Dsonar.tests=tests/
