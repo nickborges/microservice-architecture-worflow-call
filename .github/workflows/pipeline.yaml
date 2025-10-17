@@ -16,6 +16,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: dev
+    env:
+      VERSION: ${{ outputs.maven_version.outputs.VERSION }}
+      APP_NAME: ${{ outputs.maven_artifactId.outputs.APP_NAME }}
     outputs:
       maven_version: ${{ steps.maven_version.outputs.VERSION }}
       maven_artifactId: ${{ steps.maven_artifactId.outputs.APP_NAME }}
@@ -34,15 +37,11 @@ jobs:
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
         id: maven_version
-        env:
-          VERSION: ${{ steps.maven_version.outputs.VERSION }}
       - name: app-name
         run: |
           APP_NAME=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout )
           echo "APP_NAME=$APP_NAME" >> $GITHUB_OUTPUT
         id: maven_artifactId
-        env:
-          APP_NAME: ${{ steps.maven_artifactId.outputs.APP_NAME }}
       #- name: upload-artifact
       #  uses: actions/upload-artifact@v4.6.2
       #  with:
